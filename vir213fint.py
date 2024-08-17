@@ -1,3 +1,5 @@
+import itertools
+
 def rank(t):
     rankarr=[[[[[0 for r in range(0,t+1)] for i in range(0,t+1)] for j in range(0,t+1)] for q in range(0,t+1)] for w in range(0,t+1)]
     rankarr[2][0][0][0][0]=1
@@ -49,39 +51,100 @@ def rank(t):
 
 t=12
 rk=rank(t)
+nonample=[]
 
-for n in range(8,t+1):
-    for i in range(0,n+1):
-        for j in range(0,n+1-i):
-            for k in range(0,n+1-i-j):
-                for l in range(0,n+1-i-j-k):
-                    m=n-i-j-k-l
-                    if(rk[i][j][k][l][m]<2):
-                        break
-                    for f11 in range(0,i+1):
-                        for f21 in range(0,i+1-f11):
-                            for f31 in range(0,i+1-f11-f21):
-                                f41=i-f11-f21-f31
-                                for f12 in range(0,j+1):
-                                    for f22 in range(0,j+1-f12):
-                                        for f32 in range(0,j+1-f12-f22):
-                                            f42=j-f12-f22-f32
-                                            for f13 in range(0,k+1):
-                                                for f23 in range(0,k+1-f13):
-                                                    for f33 in range(0,k+1-f13-f23):
-                                                        f43=k-f13-f23-f33
-                                                        for f14 in range(0,l+1):
-                                                            for f24 in range(0,l+1-f14):
-                                                                for f34 in range(0,l+1-f14-f24):
-                                                                    f44=l-f14-f24-f34
-                                                                    for f15 in range(max(0,1-f11-f12-f13-f14),m+1):
-                                                                        for f25 in range(max(0,1-f21-f22-f23-f24),m+1-f15):
-                                                                            for f35 in range(max(0,1-f31-f32-f33-f34),m+1-f15-f25):
-                                                                                f45=m-f15-f25-f35
-                                                                                if(f41+f42+f43+f44+f45==0):
+n=8
+
+for i in range(0,n+1):
+    for j in range(0,n+1-i):
+        for k in range(0,n+1-i-j):
+            for l in range(0,n+1-i-j-k):
+                m=n-i-j-k-l
+                if(rk[i][j][k][l][m]<2):
+                    break
+                for f11 in range(0,i+1):
+                    for f21 in range(0,i+1-f11):
+                        for f31 in range(0,i+1-f11-f21):
+                            f41=i-f11-f21-f31
+                            for f12 in range(0,j+1):
+                                for f22 in range(0,j+1-f12):
+                                    for f32 in range(0,j+1-f12-f22):
+                                        f42=j-f12-f22-f32
+                                        for f13 in range(0,k+1):
+                                            for f23 in range(0,k+1-f13):
+                                                for f33 in range(0,k+1-f13-f23):
+                                                    f43=k-f13-f23-f33
+                                                    for f14 in range(0,l+1):
+                                                        for f24 in range(0,l+1-f14):
+                                                            for f34 in range(0,l+1-f14-f24):
+                                                                f44=l-f14-f24-f34
+                                                                for f15 in range(max(0,1-f11-f12-f13-f14),m+1):
+                                                                    for f25 in range(max(0,1-f21-f22-f23-f24),m+1-f15):
+                                                                        for f35 in range(max(0,1-f31-f32-f33-f34),m+1-f15-f25):
+                                                                            f45=m-f15-f25-f35
+                                                                            if(f41+f42+f43+f44+f45==0):
+                                                                                break
+                                                                            list1=[]
+                                                                            list2=[]
+                                                                            list3=[]
+                                                                            list4=[]
+                                                                            if(rk[f11+1][f12][f13][f14][f15]>0):
+                                                                                list1.append(1)
+                                                                            if(rk[f11][f12+1][f13][f14][f15]>0):
+                                                                                list1.append(2)
+                                                                            if(rk[f11][f12][f13+1][f14][f15]>0):
+                                                                                list1.append(3)
+                                                                            if(rk[f11][f12][f13][f14+1][f15]>0):
+                                                                                list1.append(4)
+                                                                            if(rk[f11][f12][f13][f14][f15+1]>0):
+                                                                                list1.append(5)
+                                                                            if(rk[f21+1][f22][f23][f24][f25]>0):
+                                                                                list2.append(1)
+                                                                            if(rk[f21][f22+1][f23][f24][f25]>0):
+                                                                                list2.append(2)
+                                                                            if(rk[f21][f22][f23+1][f24][f25]>0):
+                                                                                list2.append(3)
+                                                                            if(rk[f21][f22][f23][f24+1][f25]>0):
+                                                                                list2.append(4)
+                                                                            if(rk[f21][f22][f23][f24][f25+1]>0):
+                                                                                list2.append(5)
+                                                                            if(rk[f31+1][f32][f33][f34][f35]>0):
+                                                                                list3.append(1)
+                                                                            if(rk[f31][f32+1][f33][f34][f35]>0):
+                                                                                list3.append(2)
+                                                                            if(rk[f31][f32][f33+1][f34][f35]>0):
+                                                                                list3.append(3)
+                                                                            if(rk[f31][f32][f33][f34+1][f35]>0):
+                                                                                list3.append(4)
+                                                                            if(rk[f31][f32][f33][f34][f35+1]>0):
+                                                                                list3.append(5)
+                                                                            if(rk[f41+1][f42][f43][f44][f45]>0):
+                                                                                list4.append(1)
+                                                                            if(rk[f41][f42+1][f43][f44][f45]>0):
+                                                                                list4.append(2)
+                                                                            if(rk[f41][f42][f43+1][f44][f45]>0):
+                                                                                list4.append(3)
+                                                                            if(rk[f41][f42][f43][f44+1][f45]>0):
+                                                                                list4.append(4)
+                                                                            if(rk[f41][f42][f43][f44][f45+1]>0):
+                                                                                list4.append(5)
+                                                                            mlist=list(itertools.product(list1,list2,list3,list4))
+                                                                            check=0
+                                                                            for pair in mlist:
+                                                                                a=pair.count(1)
+                                                                                b=pair.count(2)
+                                                                                c=pair.count(3)
+                                                                                d=pair.count(4)
+                                                                                e=pair.count(5)
+                                                                                if(rk[a][b][c][d][e]>1):
+                                                                                    check=1
                                                                                     break
+                                                                            if(check==0):
+                                                                                nonample.append([n,i,j,k,l,m,f11,f12,f13,f14,f15,f21,f22,f23,f24,f25,f31,f32,f33,f34,f35,f41,f42,f43,f44,f45])
+                                                                                print([n,i,j,k,l,m,f11,f12,f13,f14,f15,f21,f22,f23,f24,f25,f31,f32,f33,f34,f35,f41,f42,f43,f44,f45])
+    print(i)
+print(nonample)
                                                                                 
-
                                                                                 
 
 
